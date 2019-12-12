@@ -1879,8 +1879,7 @@ def run_IgBlast(igblast, loci, output_dir, cell_name, index_location,
     # Lines below suppress Igblast warning about not having an auxliary file.
     # Taken from http://stackoverflow.com/questions/11269575/how-to-hide-output-
     #of-subprocess-in-python-2-7
-    # EJC - I think with python-3-7 the DEVNULL does not require opening (or closing)
-   # DEVNULL = open(os.devnull, 'wb')
+    DEVNULL = open(os.devnull, 'wb')
 
     num_alignments_V = '20'
     num_alignments_D = '3'
@@ -1914,10 +1913,11 @@ def run_IgBlast(igblast, loci, output_dir, cell_name, index_location,
                                                                                               
  
             with open(igblast_out, 'w') as out:
-                subprocess.check_call(command, stdout=out, stderr=subprocess.DEVNULL)
+        with open(os.devnull, 'w') as DEVNULL:
+                subprocess.check_call(command, stdout=out, stderr=DEVNULL)
             if assembled_file is not None:
                 break
-  #  DEVNULL.close()
+    DEVNULL.close()
 
 
 def run_IgBlast_IMGT_gaps_for_cell(igblast, loci, output_dir, cell_name, 
