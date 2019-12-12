@@ -1913,7 +1913,6 @@ def run_IgBlast(igblast, loci, output_dir, cell_name, index_location,
                                                                                               
  
             with open(igblast_out, 'w') as out:
-        with open(os.devnull, 'w') as DEVNULL:
                 subprocess.check_call(command, stdout=out, stderr=DEVNULL)
             if assembled_file is not None:
                 break
