@@ -1880,7 +1880,7 @@ def run_IgBlast(igblast, loci, output_dir, cell_name, index_location,
     # Taken from http://stackoverflow.com/questions/11269575/how-to-hide-output-
     #of-subprocess-in-python-2-7
     #DEVNULL = open(os.devnull, 'wb')
-    # EJC - added in the optional file.
+    # EJC - Dec 2019 - added in the optional file.
 
     num_alignments_V = '20'
     num_alignments_D = '3'
@@ -2219,19 +2219,41 @@ def run_MakeDb_for_cell(MakeDb, locus, outdir, species, gapped_seq_location,
                                         ungapped_seq_location, cell_name):
     """Runs MakeDb of Change-O for each cell to identify CDR3 sequences
     during the assembly step"""
+        # EJC - Dec 2019 - added in the optional file.
     gapped_seqs = {}
     gapped_seqs['V'] = "{}/BCR_{}_V.fa".format(gapped_seq_location, locus)
     gapped_seqs['D'] = "{}/BCR_H_D.fa".format(ungapped_seq_location)
     gapped_seqs['J'] = "{}/BCR_{}_J.fa".format(ungapped_seq_location, locus)
 
     makedb_input =  "{}/IgBLAST_output/{}_BCR_{}.fmt7".format(outdir, cell_name, locus)
-    seq_file = "{}/Trinity_output/{}_BCR_{}.Trinity.fasta".format(outdir, cell_name, locus)    
+    seq_file = "{}/Trinity_output/{}_BCR_{}.Trinity.fasta".format(outdir, cell_name, locus)
+    
+    # Added Dec 2019, EJC (duplicated from above)
+        if 'Hsap' in species:
+        igblast_species = 'human'
+    elif 'Mmus' in species:
+        igblast_species = 'mouse'
+    else:
+        species_mapper = {
+            'Mmus': 'mouse',
+            'Hsap': 'human',
+            'Rat' : 'rat'
+        }
+
+        igblast_species = species
+        if species in species_mapper.keys():
+            igblast_species = species_mapper[species]
+        else:
+            igblast_species = 'mouse'
+     auxiliary_data='{}/optional_file/{}_gl.aux'.format(ungapped_seq_location,igblast_species)
+    # End of addition, Dec 2019, EJC
+
 
     if os.path.isfile(makedb_input) and os.path.getsize(makedb_input) > 0:
         if os.path.isfile(seq_file) and os.path.getsize(seq_file) > 0:
             command = [MakeDb, 'igblast', '-i', makedb_input, '-s', seq_file,
                         '-r', gapped_seqs["V"], gapped_seqs["D"],
-                        gapped_seqs["J"], '--regions', '--scores']
+                        gapped_seqs["J"], '--regions', '--scores','-auxiliary_data', auxiliary_data]
             subprocess.check_call(command)
 
 
@@ -2247,13 +2269,31 @@ def run_MakeDb(MakeDb, locus, outdir, species, gapped_seq_location,
 
     makedb_input =  "{}/igblast_{}.fmt7".format(outdir, locus)
     seq_file = "{}/igblast_input_{}.fa".format(outdir, locus)
-    
+        # Added Dec 2019, EJC (duplicated from above)
+        if 'Hsap' in species:
+        igblast_species = 'human'
+    elif 'Mmus' in species:
+        igblast_species = 'mouse'
+    else:
+        species_mapper = {
+            'Mmus': 'mouse',
+            'Hsap': 'human',
+            'Rat' : 'rat'
+        }
+
+        igblast_species = species
+        if species in species_mapper.keys():
+            igblast_species = species_mapper[species]
+        else:
+            igblast_species = 'mouse'
+     auxiliary_data='{}/optional_file/{}_gl.aux'.format(ungapped_seq_location,igblast_species)
+    # End of addition, Dec 2019, EJC
 
     if os.path.isfile(makedb_input) and os.path.getsize(makedb_input) > 0:
         if os.path.isfile(seq_file) and os.path.getsize(seq_file) > 0:
             command = [MakeDb, 'igblast', '-i', makedb_input, '-s', seq_file, 
                             '-r', gapped_seqs["V"], gapped_seqs["D"],
-                            gapped_seqs["J"], '--regions', '--scores']
+                            gapped_seqs["J"], '--regions', '--scores','-auxiliary_data', auxiliary_data]
 
             subprocess.check_call(command)
                 
