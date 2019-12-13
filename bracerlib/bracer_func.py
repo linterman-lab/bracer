@@ -2229,7 +2229,7 @@ def run_MakeDb_for_cell(MakeDb, locus, outdir, species, gapped_seq_location,
     seq_file = "{}/Trinity_output/{}_BCR_{}.Trinity.fasta".format(outdir, cell_name, locus)
     
     # Added Dec 2019, EJC (duplicated from above)
-        if 'Hsap' in species:
+    if 'Hsap' in species:
         igblast_species = 'human'
     elif 'Mmus' in species:
         igblast_species = 'mouse'
