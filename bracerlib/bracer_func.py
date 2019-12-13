@@ -1880,6 +1880,7 @@ def run_IgBlast(igblast, loci, output_dir, cell_name, index_location,
     # Taken from http://stackoverflow.com/questions/11269575/how-to-hide-output-
     #of-subprocess-in-python-2-7
     #DEVNULL = open(os.devnull, 'wb')
+    # EJC - added in the optional file.
 
     num_alignments_V = '20'
     num_alignments_D = '3'
@@ -1902,7 +1903,7 @@ def run_IgBlast(igblast, loci, output_dir, cell_name, index_location,
                       '-show_translation', '-num_alignments_V', 
                       num_alignments_V, '-num_alignments_D', num_alignments_D, 
                       '-num_alignments_J', num_alignments_J, '-outfmt', '7', 
-                      '-query', trinity_fasta]
+                      '-query', trinity_fasta '-auxiliary_data', 'optional_file/{}_gl.aux'.format(igblast_species)]
 
             if assembled_file is None:
                 igblast_out = "{}/IgBLAST_output/{}_{}.IgBLASTOut".format(
