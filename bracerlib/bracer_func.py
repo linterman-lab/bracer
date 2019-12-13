@@ -2273,7 +2273,7 @@ def run_MakeDb(MakeDb, locus, outdir, species, gapped_seq_location,
     makedb_input =  "{}/igblast_{}.fmt7".format(outdir, locus)
     seq_file = "{}/igblast_input_{}.fa".format(outdir, locus)
         # Added Dec 2019, EJC (duplicated from above)
-        if 'Hsap' in species:
+    if 'Hsap' in species:
         igblast_species = 'human'
     elif 'Mmus' in species:
         igblast_species = 'mouse'
