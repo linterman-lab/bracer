@@ -2229,6 +2229,7 @@ def run_MakeDb_for_cell(MakeDb, locus, outdir, species, gapped_seq_location,
     seq_file = "{}/Trinity_output/{}_BCR_{}.Trinity.fasta".format(outdir, cell_name, locus)
     
     # Added Dec 2019, EJC (duplicated from above)
+    
     if 'Hsap' in species:
         igblast_species = 'human'
     elif 'Mmus' in species:
@@ -2245,7 +2246,9 @@ def run_MakeDb_for_cell(MakeDb, locus, outdir, species, gapped_seq_location,
             igblast_species = species_mapper[species]
         else:
             igblast_species = 'mouse'
-     auxiliary_data='{}/optional_file/{}_gl.aux'.format(ungapped_seq_location,igblast_species)
+            
+    auxiliary_data='{}/optional_file/{}_gl.aux'.format(ungapped_seq_location,igblast_species)
+    
     # End of addition, Dec 2019, EJC
 
 
