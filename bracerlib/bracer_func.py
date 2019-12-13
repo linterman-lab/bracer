@@ -1903,7 +1903,7 @@ def run_IgBlast(igblast, loci, output_dir, cell_name, index_location,
                       '-show_translation', '-num_alignments_V', 
                       num_alignments_V, '-num_alignments_D', num_alignments_D, 
                       '-num_alignments_J', num_alignments_J, '-outfmt', '7', 
-                      '-query', trinity_fasta '-auxiliary_data', 'optional_file/{}_gl.aux'.format(igblast_species)]
+                      '-query', trinity_fasta, '-auxiliary_data', 'optional_file/{}_gl.aux'.format(igblast_species)]
 
             if assembled_file is None:
                 igblast_out = "{}/IgBLAST_output/{}_{}.IgBLASTOut".format(
