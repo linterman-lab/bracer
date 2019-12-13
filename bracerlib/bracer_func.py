@@ -2289,7 +2289,9 @@ def run_MakeDb(MakeDb, locus, outdir, species, gapped_seq_location,
             igblast_species = species_mapper[species]
         else:
             igblast_species = 'mouse'
-     auxiliary_data='{}/optional_file/{}_gl.aux'.format(ungapped_seq_location,igblast_species)
+    
+    auxiliary_data='{}/optional_file/{}_gl.aux'.format(ungapped_seq_location,igblast_species)
+    
     # End of addition, Dec 2019, EJC
 
     if os.path.isfile(makedb_input) and os.path.getsize(makedb_input) > 0:
