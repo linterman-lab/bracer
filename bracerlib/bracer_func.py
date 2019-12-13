@@ -2228,35 +2228,12 @@ def run_MakeDb_for_cell(MakeDb, locus, outdir, species, gapped_seq_location,
     makedb_input =  "{}/IgBLAST_output/{}_BCR_{}.fmt7".format(outdir, cell_name, locus)
     seq_file = "{}/Trinity_output/{}_BCR_{}.Trinity.fasta".format(outdir, cell_name, locus)
     
-    # Added Dec 2019, EJC (duplicated from above)
-    
-    if 'Hsap' in species:
-        igblast_species = 'human'
-    elif 'Mmus' in species:
-        igblast_species = 'mouse'
-    else:
-        species_mapper = {
-            'Mmus': 'mouse',
-            'Hsap': 'human',
-            'Rat' : 'rat'
-        }
-
-        igblast_species = species
-        if species in species_mapper.keys():
-            igblast_species = species_mapper[species]
-        else:
-            igblast_species = 'mouse'
-            
-    auxiliary_data='{}/optional_file/{}_gl.aux'.format(ungapped_seq_location,igblast_species)
-    
-    # End of addition, Dec 2019, EJC
-
 
     if os.path.isfile(makedb_input) and os.path.getsize(makedb_input) > 0:
         if os.path.isfile(seq_file) and os.path.getsize(seq_file) > 0:
             command = [MakeDb, 'igblast', '-i', makedb_input, '-s', seq_file,
                         '-r', gapped_seqs["V"], gapped_seqs["D"],
-                        gapped_seqs["J"], '--regions', '--scores','-auxiliary_data', auxiliary_data]
+                        gapped_seqs["J"]]
             subprocess.check_call(command)
 
 
@@ -2272,33 +2249,12 @@ def run_MakeDb(MakeDb, locus, outdir, species, gapped_seq_location,
 
     makedb_input =  "{}/igblast_{}.fmt7".format(outdir, locus)
     seq_file = "{}/igblast_input_{}.fa".format(outdir, locus)
-        # Added Dec 2019, EJC (duplicated from above)
-    if 'Hsap' in species:
-        igblast_species = 'human'
-    elif 'Mmus' in species:
-        igblast_species = 'mouse'
-    else:
-        species_mapper = {
-            'Mmus': 'mouse',
-            'Hsap': 'human',
-            'Rat' : 'rat'
-        }
-
-        igblast_species = species
-        if species in species_mapper.keys():
-            igblast_species = species_mapper[species]
-        else:
-            igblast_species = 'mouse'
-    
-    auxiliary_data='{}/optional_file/{}_gl.aux'.format(ungapped_seq_location,igblast_species)
-    
-    # End of addition, Dec 2019, EJC
-
+ 
     if os.path.isfile(makedb_input) and os.path.getsize(makedb_input) > 0:
         if os.path.isfile(seq_file) and os.path.getsize(seq_file) > 0:
             command = [MakeDb, 'igblast', '-i', makedb_input, '-s', seq_file, 
                             '-r', gapped_seqs["V"], gapped_seqs["D"],
-                            gapped_seqs["J"], '--regions', '--scores','-auxiliary_data', auxiliary_data]
+                            gapped_seqs["J"]]
 
             subprocess.check_call(command)
                 
