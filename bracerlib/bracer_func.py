@@ -2236,7 +2236,7 @@ def run_MakeDb_for_cell(MakeDb, locus, outdir, species, gapped_seq_location,
         if os.path.isfile(seq_file) and os.path.getsize(seq_file) > 0:
             command = [MakeDb, 'igblast', '-i', makedb_input, '-s', seq_file,
                         '-r', gapped_seqs["V"], gapped_seqs["D"],
-                        gapped_seqs["J"]]
+                        gapped_seqs["J"], '--regions', '--scores']
             subprocess.check_call(command)
 
 
@@ -2257,7 +2257,7 @@ def run_MakeDb(MakeDb, locus, outdir, species, gapped_seq_location,
         if os.path.isfile(seq_file) and os.path.getsize(seq_file) > 0:
             command = [MakeDb, 'igblast', '-i', makedb_input, '-s', seq_file, 
                             '-r', gapped_seqs["V"], gapped_seqs["D"],
-                            gapped_seqs["J"]]
+                            gapped_seqs["J"], '--regions', '--scores']
 
             subprocess.check_call(command)
                 
