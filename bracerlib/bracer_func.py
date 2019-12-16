@@ -198,6 +198,7 @@ def get_gapped_db_header(locus, cell_name, output_dir):
 
 def parse_gapped_db_string(gapped_db_string, gapped_db_header):
     """Extracts information from IgBlast gapped output using the headers"""
+    global n
     n = 0
     info = gapped_db_string.split("\t")
     for header in gapped_db_header:
@@ -212,7 +213,7 @@ def parse_gapped_db_string(gapped_db_string, gapped_db_header):
             indels = info[n].strip()
         elif header == "JUNCTION":
             junction = info[n].strip()
-        elif header == "SEQUENCE_VDJ":
+        elif header == "SEQUENCE_IMGT":
             cdr3_seq = info[n].strip()
         n +=1
 
