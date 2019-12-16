@@ -212,7 +212,7 @@ def parse_gapped_db_string(gapped_db_string, gapped_db_header):
             indels = info[n].strip()
         elif header == "JUNCTION":
             junction = info[n].strip()
-        elif header == "CDR3_IMGT":
+        elif header == "SEQUENCE_IMGT":
             cdr3_seq = info[n].strip()
         n +=1
 
